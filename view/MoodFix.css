@@ -1,0 +1,55 @@
+html {
+  font-family: sans-serif;
+  font-size: 1.3em;
+}
+
+body {
+  margin: 0;
+  padding: 10px;
+  width: 500px;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: normal;
+}
+
+.error {
+  color: red;
+}
+
+.status {
+  color: rgb(76, 150, 175);
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+}
+
+.title h1 {
+  color: lightpink;
+}
+
+.mainContent {
+  margin: 20px 0;
+}
+
+.contentWrapper {
+  background: #fdfdfd;
+  border: 1px solid lightgrey;
+  padding: 5px;
+}
+
+.contentWrapper .start {
+  color: lightcoral;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer {
+  font-size: 0.8em;
+  font-style: italic;
+  width: 100%;
+  margin: 0 auto;
+}
