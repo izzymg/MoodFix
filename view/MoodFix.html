@@ -7,19 +7,26 @@
   <body>
     <div class="title">
       <h1> MoodFix </h1>
-      <span id="message"> Moodle helper </span>
+      <p id="message"> Moodle helper </p>
     </div>
     <div class="mainContent">
       <div class="contentWrapper">
-        <h3> Fix headers </h3>
-        <span> Navigate to the modules tab, turn editing on, then <a id="fixHeaderStart" class="start"> click to start </a></span>
-        <a href="javascript:void(0)" id="devtest"> devtest </a> 
-        <script src="./MoodFix.js"></script>
-    </div>
+        <h2> Fix header </h2>
+        <p class="smalltext"> Adds the header1 div and icon to the module's first sentence </p>
+        <p> Navigate to the module and turn editing on.</p>
+        <button id="fixHeaderStart"> Fix header </button></p>
+      </div>
+      <div class="contentWrapper">
+        <h2> Fix mihi </h2>
+        <p class="smalltext"> Replaces/adds the mihi and script </p>
+        <p> Open the Haere Mai tab and turn editing on. </p>
+        <button id="mihiFixStart"> Add mihi </button></p>
+      </div>
     </div>
     <div class="footer">
       <span> Izzy MG </span>
       <span> | Ensure your Moodle editor is set to Atto </span>
     </div>
+    <script src="./MoodFix.js"></script>
   </body>
 </html>

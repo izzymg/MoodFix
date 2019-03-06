@@ -12,7 +12,14 @@ body {
 h1, h2, h3, h4 {
   margin: 0;
   font-weight: normal;
+  display: inline-block;
 }
+
+h2, h3, h4 {
+  border-bottom: 1px solid lightpink;
+}
+
+p { margin: 2px 0; }
 
 .error {
   color: red;
