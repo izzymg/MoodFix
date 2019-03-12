@@ -15,42 +15,49 @@ async function runHeaderFix() {
 }
 
 async function runMassD4ls() {
-  let windowId;
+  let tabId;
   // Grab current window ID in case user unfocuses window
   chrome.tabs.query({ "active": true, "currentWindow": true }, function(tabs) {
-    windowId = tabs[0].windowId;
+    tabId = tabs[0].id;
+    console.log("Using", tabId);
   });
   // Await number of courses in category from script
   chrome.runtime.onMessage.addListener(async(message) => {
     if(message.courses) {
       // Loop through number of courses
-      for(let courseNumber = 0; courseNumber < message.courses /* placeholder */; courseNumber++) {
+      for(let courseNumber = 0; courseNumber < message.courses; courseNumber++) {
         // Inject script to open course(n) in category
-        chrome.tabs.executeScript({ file: "scripts/openCategoryCourse.js" });
-        await ms(3000);
+        chrome.tabs.executeScript(tabId, { file: "scripts/openCategoryCourse.js" });
+        await ms(250);
         // Send n to the script
-        chrome.tabs.query({ "active": true, "windowId": windowId }, function(tabs) {
-          chrome.tabs.sendMessage(tabs[0].id, { courseNumber, courses: message.courses });
-        });
+        chrome.tabs.sendMessage(tabId, { courseNumber, courses: message.courses });
         // Await course load
         await ms(3000);
-        // Go back
-        chrome.tabs.executeScript({ file: "scripts/goBack.js" });
-        await ms(3000);
+        // Run D4LS fix
+        await runD4lsTag(tabId);
+        await ms(6000);
+        // Go back to category
+        chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
+        await ms(1000);
+        chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
+        await ms(1000);
+        chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
+        await ms(1000);
       }
       chrome.runtime.sendMessage("done");
     }
   });
   // Inject script to send number of courses in category
-  chrome.tabs.executeScript({ file: "scripts/getCategoryCourses.js" });
+  chrome.tabs.executeScript(tabId, { file: "scripts/getCategoryCourses.js" });
 }
 
-async function runD4lsTag() {
-  chrome.tabs.executeScript({ file: "scripts/openSettings.js" });
+async function runD4lsTag(tabId) {
+  chrome.tabs.executeScript(tabId, { file: "scripts/openSettings.js" });
   await ms(3000);
-  chrome.tabs.executeScript({ file: "scripts/addD4lsTag.js" });
-  await ms(500);
-  chrome.tabs.executeScript({ file: "scripts/saveSettings.js" });
+  chrome.tabs.executeScript(tabId, { file: "scripts/addD4lsTag.js" });
+  await ms(1500);
+  chrome.tabs.executeScript(tabId, { file: "scripts/saveSettings.js" });
+  await ms(1000);
 }
 
 // Allow popup action when domain matches op moodle
@@ -72,7 +79,12 @@ chrome.runtime.onMessage.addListener(async(message) => {
       await runHeaderFix();
       break;
     case "startD4lsTag":
-      await runD4lsTag();
+      chrome.tabs.query({ "active": true, "currentWindow": true }, function(tabs) {
+        // Grab current tab ID and run
+        runD4lsTag(tabs[0].id).then(() => {
+          chrome.runtime.sendMessage("done");
+        });
+      });
       break;
     case "startMassD4ls":
       await runMassD4ls();

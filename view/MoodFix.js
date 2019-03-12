@@ -11,7 +11,7 @@ function init() {
       message.classList.add("status");
       message.textContent = received.status + "...";
     }
-    if(received === "done") {
+    if(received === "done" || received == "cancel") {
       message.classList.remove("error", "status");
       message.textContent = "Moodle helper";
     }
@@ -28,6 +28,11 @@ function init() {
   document.querySelector("#massD4lsStart").addEventListener("click", function() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startMassD4ls");
+  });
+
+  document.querySelector("#cancel").addEventListener("click", function() {
+    // Send fixHeaders event on click
+    chrome.runtime.sendMessage("cancel");
   });
 }
 
