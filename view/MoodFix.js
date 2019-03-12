@@ -29,11 +29,6 @@ function init() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startMassD4ls");
   });
-
-  document.querySelector("#cancel").addEventListener("click", function() {
-    // Send fixHeaders event on click
-    chrome.runtime.sendMessage("cancel");
-  });
 }
 
 if(document.readyState == "complete") {
