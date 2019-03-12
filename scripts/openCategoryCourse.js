@@ -11,5 +11,6 @@
   const { courseNumber, numCourses } = await onCourseNumber;
   const courses = document.querySelectorAll(".courses .coursename");
   chrome.runtime.sendMessage({ status: `Opening course ${courseNumber + 1}/${numCourses}` });
-  window.location.href = courses[courseNumber].firstElementChild.href;
+  console.log(courses[courseNumber].firstElementChild.href);
+  window.location.href = courses[courseNumber].firstElementChild.href.replace("view", "edit");
 })();

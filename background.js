@@ -34,11 +34,11 @@ async function runMassD4ls() {
         // Await course load
         await ms(3000);
         // Run D4LS fix
-        await runD4lsTag(tabId);
-        await ms(6000);
+        chrome.tabs.executeScript(tabId, { file: "scripts/addD4lsTag.js" });
+        await ms(3000);
+        chrome.tabs.executeScript(tabId, { file: "scripts/saveSettings.js" });
+        await ms(3000);
         // Go back to category
-        chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
-        await ms(1000);
         chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
         await ms(1000);
         chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
