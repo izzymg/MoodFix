@@ -20,9 +20,14 @@ function init() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startHeaderFix");
   });
-  document.querySelector("#mihiFixStart").addEventListener("click", function() {
+  document.querySelector("#d4lsTagStart").addEventListener("click", function() {
     // Send fixHeaders event on click
-    chrome.runtime.sendMessage("startMihiFix");
+    chrome.runtime.sendMessage("startD4lsTag");
+  });
+
+  document.querySelector("#massD4lsStart").addEventListener("click", function() {
+    // Send fixHeaders event on click
+    chrome.runtime.sendMessage("startMassD4ls");
   });
 }
 
