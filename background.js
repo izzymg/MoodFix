@@ -16,14 +16,13 @@ async function runHeaderFix() {
 
 async function runMassD4ls() {
   let tabId;
-  // Grab current window ID in case user unfocuses window
+  // Grab current tab ID in case user unfocuses window
   chrome.tabs.query({ "active": true, "currentWindow": true }, function(tabs) {
     tabId = tabs[0].id;
-    console.log("Using", tabId);
   });
   // Await number of courses in category from script
   chrome.runtime.onMessage.addListener(async(message) => {
-    if(message.courses) {
+    if(message.courses && message.url) {
       // Loop through number of courses
       for(let courseNumber = 0; courseNumber < message.courses; courseNumber++) {
         // Inject script to open course(n) in category
@@ -32,23 +31,22 @@ async function runMassD4ls() {
         // Send n to the script
         chrome.tabs.sendMessage(tabId, { courseNumber, courses: message.courses });
         // Await course load
-        await ms(3000);
+        await ms(3500);
         // Run D4LS fix
         chrome.tabs.executeScript(tabId, { file: "scripts/addD4lsTag.js" });
         await ms(3000);
         chrome.tabs.executeScript(tabId, { file: "scripts/saveSettings.js" });
         await ms(3000);
         // Go back to category
-        chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
-        await ms(1000);
-        chrome.tabs.executeScript(tabId, { file: "scripts/goBack.js" });
+        chrome.runtime.sendMessage({ status: "Going back to category" });
+        chrome.tabs.executeScript(tabId, { code: `(() => { window.location.href = "${message.url}";})();` })
         await ms(1000);
       }
       chrome.runtime.sendMessage("done");
     }
   });
   // Inject script to send number of courses in category
-  chrome.tabs.executeScript(tabId, { file: "scripts/getCategoryCourses.js" });
+  chrome.tabs.executeScript(tabId, { file: "scripts/getCategoryInfo.js" });
 }
 
 async function runD4lsTag(tabId) {

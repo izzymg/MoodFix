@@ -2,5 +2,5 @@
 
 (async() => {
   const courses = document.querySelectorAll(".courses .coursename");
-  chrome.runtime.sendMessage({ courses: courses.length });
+  chrome.runtime.sendMessage({ courses: courses.length, url: window.location.href });
 })();

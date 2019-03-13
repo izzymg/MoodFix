@@ -10,8 +10,7 @@
     tagList.click();
     setTimeout(() => {
       const d4ls = tagHeader.querySelector(".form-autocomplete-suggestions li[data-value='D4LS']");
-      d4ls.click();
-      console.log(d4ls);
+      if(d4ls) d4ls.click();
     }, 500);
   } catch(error) {
     console.error(error);
