@@ -36,11 +36,11 @@ async function runMassD4ls() {
         chrome.tabs.executeScript(tabId, { file: "injected/iifes/addD4lsTag.js" });
         await ms(1500);
         chrome.tabs.executeScript(tabId, { file: "injected/iifes/saveSettings.js" });
-        await ms(3000);
+        await ms(2500);
         // Go back to category
         chrome.runtime.sendMessage({ status: "Going back to category" });
         chrome.tabs.executeScript(tabId, { code: `(() => { window.location.href = "${message.url}";})();` })
-        await ms(1000);
+        await ms(2000);
       }
       chrome.runtime.sendMessage("done");
     }
