@@ -2,14 +2,14 @@
 const ms = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function runHeaderFix() {
-  chrome.tabs.executeScript({ file: "scripts/openEdit.js" });
+  chrome.tabs.executeScript({ file: "injected/iifes/openEdit.js" });
   await ms(3000);
-  chrome.tabs.executeScript({ file: "scripts/toggleHtml.js" });
+  chrome.tabs.executeScript({ file: "injected/iifes/toggleHtml.js" });
   await ms(500);
-  chrome.tabs.executeScript({ file: "scripts/headerFix.js" });
+  chrome.tabs.executeScript({ file: "injected/iifes/headerFix.js" });
   await ms(2000);
-  chrome.tabs.executeScript({ file: "scripts/toggleHtml.js" });
-  chrome.tabs.executeScript({ file: "scripts/saveEdit.js" });
+  chrome.tabs.executeScript({ file: "injected/iifes/toggleHtml.js" });
+  chrome.tabs.executeScript({ file: "injected/iifes/saveEdit.js" });
   await ms(200);
   chrome.runtime.sendMessage("done");
 }
@@ -20,22 +20,22 @@ async function runMassD4ls() {
   chrome.tabs.query({ "active": true, "currentWindow": true }, function(tabs) {
     tabId = tabs[0].id;
   });
-  // Await number of courses in category from script
+  // Wait for category info
   chrome.runtime.onMessage.addListener(async(message) => {
     if(message.courses && message.url) {
       // Loop through number of courses
       for(let courseNumber = 0; courseNumber < message.courses; courseNumber++) {
         // Inject script to open course(n) in category
-        chrome.tabs.executeScript(tabId, { file: "scripts/openCategoryCourse.js" });
-        await ms(250);
-        // Send n to the script
-        chrome.tabs.sendMessage(tabId, { courseNumber, courses: message.courses });
+        chrome.tabs.executeScript(tabId, { file: "injected/functions/openCategoryCourse.js" });
+        await ms(100);
+        // Execute script with parameters
+        chrome.tabs.executeScript(tabId, { code: `MoodFixOpenCategoryCourse(${courseNumber}, ${message.courses});` });
         // Await course load
         await ms(3500);
         // Run D4LS fix
-        chrome.tabs.executeScript(tabId, { file: "scripts/addD4lsTag.js" });
-        await ms(3000);
-        chrome.tabs.executeScript(tabId, { file: "scripts/saveSettings.js" });
+        chrome.tabs.executeScript(tabId, { file: "injected/iifes/addD4lsTag.js" });
+        await ms(1500);
+        chrome.tabs.executeScript(tabId, { file: "injected/iifes/saveSettings.js" });
         await ms(3000);
         // Go back to category
         chrome.runtime.sendMessage({ status: "Going back to category" });
@@ -45,16 +45,16 @@ async function runMassD4ls() {
       chrome.runtime.sendMessage("done");
     }
   });
-  // Inject script to send number of courses in category
-  chrome.tabs.executeScript(tabId, { file: "scripts/getCategoryInfo.js" });
+  // Inject script to send us category information
+  chrome.tabs.executeScript(tabId, { file: "injected/iifes/sendCategoryInfo.js" });
 }
 
 async function runD4lsTag(tabId) {
-  chrome.tabs.executeScript(tabId, { file: "scripts/openSettings.js" });
+  chrome.tabs.executeScript(tabId, { file: "injected/iifes/openSettings.js" });
   await ms(3000);
-  chrome.tabs.executeScript(tabId, { file: "scripts/addD4lsTag.js" });
+  chrome.tabs.executeScript(tabId, { file: "injected/iifes/addD4lsTag.js" });
   await ms(1500);
-  chrome.tabs.executeScript(tabId, { file: "scripts/saveSettings.js" });
+  chrome.tabs.executeScript(tabId, { file: "injected/iifes/saveSettings.js" });
   await ms(1000);
 }
 

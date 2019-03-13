@@ -4,7 +4,7 @@
   chrome.runtime.sendMessage({ status: "Adding D4LS tag" });
   try {
     const tagHeader = document.querySelector("#id_tagshdr");
-    window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+    window.scrollTo(0, (document.body.scrollHeight || document.documentElement.scrollHeight) / 2);
     tagHeader.classList.remove("collapsed");
     const tagList = tagHeader.querySelector(".form-autocomplete-downarrow");
     tagList.click();
