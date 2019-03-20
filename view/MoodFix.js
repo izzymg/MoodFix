@@ -20,6 +20,10 @@ function init() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startHeaderFix");
   });
+  document.querySelector("#fixHeaderDescStart").addEventListener("click", function() {
+    // Send fixHeaders event on click
+    chrome.runtime.sendMessage("startHeaderDescFix");
+  });
   document.querySelector("#d4lsTagStart").addEventListener("click", function() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startD4lsTag");
@@ -28,6 +32,11 @@ function init() {
   document.querySelector("#massD4lsStart").addEventListener("click", function() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startMassD4ls");
+  });
+  
+  document.querySelector("#makeChildStart").addEventListener("click", function() {
+    // Send fixHeaders event on click
+    chrome.runtime.sendMessage("startMakeChild");
   });
 }
 

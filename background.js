@@ -1,14 +1,27 @@
 // MoodFix background script
 const ms = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function runHeaderFix() {
+async function runHeaderFix(addDesc = false) {
   chrome.tabs.executeScript({ file: "injected/iifes/openEdit.js" });
   await ms(3000);
   chrome.tabs.executeScript({ file: "injected/iifes/toggleHtml.js" });
   await ms(500);
   chrome.tabs.executeScript({ file: "injected/iifes/headerFix.js" });
+  if(addDesc) {
+    chrome.tabs.executeScript({ file: "injected/iifes/descFix.js" });
+  }
   await ms(2000);
   chrome.tabs.executeScript({ file: "injected/iifes/toggleHtml.js" });
+  chrome.tabs.executeScript({ file: "injected/iifes/saveEdit.js" });
+  await ms(200);
+  chrome.runtime.sendMessage("done");
+}
+
+async function makeChild() {
+  chrome.tabs.executeScript({ file: "injected/iifes/openEdit.js" });
+  await ms(3000);
+  chrome.tabs.executeScript({ file: "injected/iifes/makeChild.js" });
+  await ms(500);
   chrome.tabs.executeScript({ file: "injected/iifes/saveEdit.js" });
   await ms(200);
   chrome.runtime.sendMessage("done");
@@ -74,7 +87,13 @@ chrome.declarativeContent.onPageChanged.removeRules(null, () => {
 chrome.runtime.onMessage.addListener(async(message) => {
   switch(message) {
     case "startHeaderFix":
-      await runHeaderFix();
+      await runHeaderFix(false);
+      break;
+    case "startHeaderDescFix":
+      await runHeaderFix(true);
+      break;
+    case "startMakeChild":
+      await makeChild();
       break;
     case "startD4lsTag":
       chrome.tabs.query({ "active": true, "currentWindow": true }, function(tabs) {
