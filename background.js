@@ -1,7 +1,7 @@
 // MoodFix background script
 const ms = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function runHeaderFix(addDesc = false) {
+async function runHeaderFix(addDesc = false, makeChild = false) {
   chrome.tabs.executeScript({ file: "injected/iifes/openEdit.js" });
   await ms(3000);
   chrome.tabs.executeScript({ file: "injected/iifes/toggleHtml.js" });
@@ -9,6 +9,10 @@ async function runHeaderFix(addDesc = false) {
   chrome.tabs.executeScript({ file: "injected/iifes/headerFix.js" });
   if(addDesc) {
     chrome.tabs.executeScript({ file: "injected/iifes/descFix.js" });
+  }
+  if(makeChild) {
+    chrome.tabs.executeScript({ file: "injected/iifes/makeChild.js" });
+    await ms(200);
   }
   await ms(2000);
   chrome.tabs.executeScript({ file: "injected/iifes/toggleHtml.js" });
@@ -94,6 +98,9 @@ chrome.runtime.onMessage.addListener(async(message) => {
       break;
     case "startMakeChild":
       await makeChild();
+      break;
+    case "startHeaderChildFix":
+      await runHeaderFix(false, true);
       break;
     case "startD4lsTag":
       chrome.tabs.query({ "active": true, "currentWindow": true }, function(tabs) {

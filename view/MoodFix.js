@@ -20,6 +20,10 @@ function init() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startHeaderFix");
   });
+  document.querySelector("#fixHeaderChildStart").addEventListener("click", function() {
+    // Send fixHeaders event on click
+    chrome.runtime.sendMessage("startHeaderChildFix");
+  });
   document.querySelector("#fixHeaderDescStart").addEventListener("click", function() {
     // Send fixHeaders event on click
     chrome.runtime.sendMessage("startHeaderDescFix");
