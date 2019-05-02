@@ -9,7 +9,7 @@ MoodFix is a small chrome extension with quality of life scripts for automation 
 
 ## Screenshot
 
-![Screenshot of MoodFix](screenshot.png)
+![Screenshot of MoodFix](docs/screenshot.png)
 
 ## Docs
 
