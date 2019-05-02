@@ -4,8 +4,8 @@ html {
 }
 
 body {
-  font-family: "Fira Sans", Arial, Helvetica, sans-serif;
-  font-size: 0.7rem;
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 0.68rem;
   margin: 0;
   padding: 10px;
   width: 500px;
@@ -17,11 +17,27 @@ h1, h2, h3, h4 {
   display: inline-block;
 }
 
-h2, h3, h4 {
-  border-bottom: 1px solid lightpink;
+p { margin: 2px 0; }
+
+button {
+  border: 1px solid hsl(0, 0%, 80%);
+  box-shadow: inset 2px 5px 5px hsl(0, 0%, 98%);
+  padding: 5px;
+  transition: border 200ms, box-shadow 100ms;
+  background: #fff;
+  cursor: pointer;
 }
 
-p { margin: 2px 0; }
+button:hover {
+  border: 1px solid hsl(338, 20%, 75%);
+  box-shadow: inset 2px 5px 25px hsl(338, 60%, 94%);
+}
+i.material-icons-outlined, i.material-icons {
+  position: relative;
+  vertical-align: middle;
+  top: -3px;
+  font-size: 26px;
+}
 
 .error {
   color: red;
@@ -46,9 +62,10 @@ p { margin: 2px 0; }
 
 .contentWrapper {
   background: #fff;
-  border: 1px solid lightgrey;
+  box-shadow: 1px 4px 5px 0 hsl(0, 0%, 92%);
+  border: 1px solid hsl(0, 0%, 88%);
   padding: 10px;
-  margin: 2px 0;
+  margin: 5px 0;
 }
 
 .contentWrapper p {
@@ -62,8 +79,8 @@ p { margin: 2px 0; }
 }
 
 .footer {
-  font-size: 0.8em;
-  font-style: italic;
+  font-size: 0.65rem;
   width: 100%;
   margin: 0 auto;
+  color: hsl(0, 0%, 30%);
 }

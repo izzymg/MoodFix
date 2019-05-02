@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./MoodFix.css">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
   </head>
   <body>
     <div class="title">
@@ -12,21 +13,23 @@
     </div>
     <div class="mainContent">
       <div class="contentWrapper">
-        <h2> Fix header </h2>
-        <p class="smalltext"> Adds the header1 div and icon to the module's first sentence </p>
+        <i class="material-icons-outlined">credit_card</i>
+        <h2> Add header </h2>
+        <p class="smalltext"> Adds the header1 div based on the <b>sections's title</b> to the sections's first line </p>
         <p> Navigate to the module and turn editing on.</p>
-        <button id="fixHeaderStart"> Fix header </button></p>
-        <button id="fixHeaderChildStart"> Make child </button></p>
-        <button id="fixHeaderDescStart"> With default description </button></p>
+        <button id="addHeaderStart"> Add header </button></p>
+        <button id="addHeaderChildStart"> Add header and make section child of previous section </button></p>
       </div>
       <div class="contentWrapper">
+        <i class="material-icons-outlined">label</i>
         <h2> Add D4LS tag </h2>
         <p class="smalltext"></p>
-        <p> Make sure you are in a category before choosing the second option </p>
+        <p> Make sure you are in a category before choosing "to all courses in category" </p>
         <button id="d4lsTagStart"> To course </button></p>
         <button id="massD4lsStart"> To all courses in category </button></p>
       </div>
       <div class="contentWrapper">
+        <i class="material-icons-outlined">low_priority</i>
         <h2> Make child </h2>
         <p class="smalltext"></p>
         <p> Makes the opened module a child of the previous </p>
@@ -34,6 +37,7 @@
       </div>
     </div>
     <div class="footer">
+      <i class="material-icons-outlined">help</i>      
       <span> Izzy MG </span>
       <span> | Ensure your Moodle editor is set to Atto </span>
     </div>
