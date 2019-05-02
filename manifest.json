@@ -1,6 +1,6 @@
 {
   "name": "MoodFix",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Moodle helper extension",
   "background": {
     "scripts": ["background.js"],
